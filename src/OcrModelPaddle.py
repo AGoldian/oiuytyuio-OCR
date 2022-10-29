@@ -1,11 +1,8 @@
-import cv2
-import pandas as pd
-from paddleocr import PaddleOCR, draw_ocr
-import enchant
 import glob
-import json
-from mmocr.utils.ocr import MMOCR
-import mmcv
+
+import cv2
+import enchant
+from paddleocr import PaddleOCR, draw_ocr
 
 
 class OcrModelPaddle:
@@ -105,7 +102,6 @@ if __name__ == '__main__':
     # img = cv2.imread(r"C:\Users\Sergey\Downloads\tmp\Train\train\00002.jpg")
     # mm.predict(img)
 
-   
     ocr = OcrModelPaddle(prefer_lang='ru')
     for filename in glob.glob(r'C:\Users\Sergey\Downloads\tmp\Train\train\*.jpg'):
         img = cv2.imread(filename)

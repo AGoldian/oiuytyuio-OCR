@@ -1,0 +1,6 @@
+opencv-python
+pyenchant
+streamlit
+pandas
+paddlepaddle
+paddleocr

@@ -6,6 +6,7 @@
 - `git clone https://github.com/AGoldian/oiuytyuio-OCR.git`
 
 # Запуск
+Для запуска необходимо иметь Microsoft Visual Studio C++ для использования библиотеки **paddleocr**
 ```
 streamlit run streamplit_app.py
 ```

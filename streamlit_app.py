@@ -27,8 +27,9 @@ def get_text(img, lang):
 
 
 def write_bbox(img, bbox, color=(0, 255, 255), thickness=4):
-    return cv2.rectangle(img, (int(bbox[0][0]), int(bbox[0][1])), (int(bbox[2][0]), int(bbox[2][1])), color, thickness)
-
+    pts2 = np.array(bbox, np.int32)  # Массив вершин
+    pts2 = pts2.reshape((- 1, 1, 2))  # Форма многомерного массива
+    return cv2.polylines(img, [pts2], True, color, thickness)
 
 def write_bboxes(img, bboxes):
     res = img.copy()

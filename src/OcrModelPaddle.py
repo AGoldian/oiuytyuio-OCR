@@ -4,6 +4,8 @@ from paddleocr import PaddleOCR, draw_ocr
 import enchant
 import glob
 import json
+from mmocr.utils.ocr import MMOCR
+import mmcv
 
 
 class OcrModelPaddle:
@@ -80,7 +82,30 @@ class OcrModelPaddle:
         return 1.0 - (enchant.utils.levenshtein(string1, string2) / max(len(string1), len(string2)))
 
 
+class OcrModelMM:
+    def __init__(self, recog='ABINet'):
+        self.result = None
+        self.mmocr = MMOCR(det='TextSnake', recog='SAR',
+                           cls=True,
+                           use_gpu=True,
+                           )
+
+    def predict(self, img):
+        self.mmocr.readtext(img,
+                            print_result=True,
+                            output=r'C:\Users\Sergey\PycharmProjects\Test\YoloV10\output.png',
+                            )
+        # cv2.imshow("a",mmcv.bgr2rgb(img))
+        # cv2.waitKey(0)
+
+
 if __name__ == '__main__':
+
+    # mm = OcrModelMM()
+    # img = cv2.imread(r"C:\Users\Sergey\Downloads\tmp\Train\train\00002.jpg")
+    # mm.predict(img)
+
+   
     ocr = OcrModelPaddle(prefer_lang='ru')
     for filename in glob.glob(r'C:\Users\Sergey\Downloads\tmp\Train\train\*.jpg'):
         img = cv2.imread(filename)

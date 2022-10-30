@@ -5,6 +5,9 @@ import enchant
 from paddleocr import PaddleOCR, draw_ocr
 
 
+# from mmocr.utils.ocr import MMOCR
+# import mmcv
+
 class OcrModelPaddle:
     def __init__(self, prefer_lang='ru'):
         self.result_en = None
@@ -48,11 +51,10 @@ class OcrModelPaddle:
         txts = [line[1][0] for line in self.result]
         scores = [line[1][1] for line in self.result]
 
-        boxes_en = [line[0] for line in self.result_en]
-        txts_en = [line[1][0] for line in self.result_en]
-        scores_en = [line[1][1] for line in self.result_en]
-
         if is_output_max_prob:
+            boxes_en = [line[0] for line in self.result_en]
+            txts_en = [line[1][0] for line in self.result_en]
+            scores_en = [line[1][1] for line in self.result_en]
             boxes_res = []
             txts_res = []
             scores_res = []
@@ -90,21 +92,36 @@ class OcrModelMM:
     def predict(self, img):
         self.mmocr.readtext(img,
                             print_result=True,
-                            output=r'C:\Users\Sergey\PycharmProjects\Test\YoloV10\output.png',
+                            output=r' ',
                             )
-        # cv2.imshow("a",mmcv.bgr2rgb(img))
-        # cv2.waitKey(0)
 
 
+import pandas as pd
+import pandas as pd
+import cv2
 if __name__ == '__main__':
-
     # mm = OcrModelMM()
-    # img = cv2.imread(r"C:\Users\Sergey\Downloads\tmp\Train\train\00002.jpg")
+    # img = cv2.imread("")
     # mm.predict(img)
-
     ocr = OcrModelPaddle(prefer_lang='ru')
-    for filename in glob.glob(r'C:\Users\Sergey\Downloads\tmp\Train\train\*.jpg'):
-        img = cv2.imread(filename)
-        coord, text, prob = ocr.predict(img, is_output_max_prob=True)
-        print(text)
-        # im_show = ocr.visualize(img)
+    df = pd.read_csv(r"")
+    copy_df = df.copy()
+    for i in range(0, len(df)):
+        img_path = df.iloc[i].image_path
+        text = df.iloc[i].output
+        output = {"left": 1, "top": 2, "width": 3, "height": 4, "label": "", "shape": "rectangle"}
+        res = []
+        k = eval(df['output'].iloc[i])[0]
+        img_path = df.iloc[i].image_path
+        img = cv2.imread('' + img_path)
+        coord, text_b, prob = ocr.predict(img,False)
+        for t in k:
+            output['left'] = t['left']
+            output['top'] = t['top']
+            output['width'] = t['width']
+            output['height'] = t['height']
+            output['label'] = text_b
+            output['shape'] = "rectangle"
+            res.append(output)
+        copy_df.output.iloc[i] = res
+    copy_df.to_csv(r' ', index=False)

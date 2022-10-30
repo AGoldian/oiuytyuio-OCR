@@ -7,11 +7,11 @@ import streamlit as st
 from PIL import Image
 
 from languages import Languages
-
+from src.OcrModelPaddle import OcrModelPaddle
 
 @st.cache(suppress_st_warning=True)
 def load_data():
-    return Image.open('resources/img.png')
+    return Image.open('./resources/img.png')
 
 
 def get_text(img, lang):
@@ -40,17 +40,16 @@ def write_bboxes(img, bboxes):
 
 def main():
     st.title("Цифровой прорыв. Команда \"щшгненгшщ\"")
-
     img = load_data()
     file = st.file_uploader("Load your picture", type=['png', 'jpg'])
     lang = st.sidebar.radio("Select language", list(Languages), format_func=lambda o: o.full_name)
-
     # load default image
     img = load_data() if file is None else Image.open(file)
     img_arr = np.array(img)
+    ocr = OcrModelPaddle(lang.code)
 
     # use neuro network
-    bboxes, texts, probs = get_text(img_arr, lang)
+    bboxes, texts, probs = ocr.predict(img_arr, False)
 
     # draw bboxes
     img_bboxes = write_bboxes(img_arr, bboxes)

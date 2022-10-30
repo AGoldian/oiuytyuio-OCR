@@ -42,7 +42,7 @@ streamlit run streamplit_app.py
 |----------------------|----------------|----------------------|
 | Оленников Вадим   | Data Scientist | https://t.me/LTDigor |
 | ---                  | ---            | ---                  |
-| Калинина Анастасия  | Data Scientist | -                    |
-| ---                  | ---            | https://t.me/akallnlna |       
-| Серов Александр       | Data Scientist | -                    |
-| ---                  | ---            | https://t.me/thegoldian   |
+| Калинина Анастасия  | Data Scientist | https://t.me/akallnlna  |
+| ---                  | ---            | --- |       
+| Серов Александр       | Data Scientist | https://t.me/thegoldian   |
+| ---                  | ---            |  --- |
